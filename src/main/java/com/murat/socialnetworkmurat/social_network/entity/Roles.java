@@ -2,12 +2,15 @@ package com.murat.socialnetworkmurat.social_network.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+
 @Entity
-@Table(name = "Roles")
+@Table(name = "roles")
 public class Roles {
 
     @Id
@@ -23,6 +26,14 @@ public class Roles {
              mappedBy = "roles"
             , fetch = FetchType.EAGER)
     private List<User> users;
+
+    public Roles(int id) {
+        this.id = id;
+    }
+
+    public Roles(String name) {
+        this.name = name;
+    }
 
     public Roles(int id, String name) {
         this.id = id;
@@ -56,6 +67,7 @@ public class Roles {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 
 
 

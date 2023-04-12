@@ -1,0 +1,133 @@
+databaseChangeLog:
+changeSet:
+  id: 1
+  author: bestuser
+  changes:
+    - createTable:
+        tableName: roles
+
+        columns:
+          - column:
+              name: id
+              type: SERIAL
+              constraints:
+                primaryKey: true
+                nullable: false
+          - column:
+              name: name
+              type: VARCHAR(45)
+              constraints:
+                nullable: true
+  changeSet:
+    id: 2
+    author: bestuser
+    changes:
+      - createTable:
+          tableName: users
+          columns:
+            - column:
+                name: id
+                type: SERIAL
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: name
+                type: VARCHAR(45)
+                constraints:
+                  nullable: false
+            - column:
+                name: pwd
+                type: VARCHAR(45)
+            - column:
+                name: status
+                type: VARCHAR(45)
+                constraints:
+                  nullable: true
+            - column:
+                name: enabled
+                type: INT
+                constraints:
+                  nullable: true
+            - column:
+                name: image
+                type: VARCHAR(128)
+                constraints:
+                  nullable: true
+            - column:
+                name: role_id
+                type: INT
+                constraints:
+                  foreignKey:
+                    references: roles(id)
+                    onDelete: CASCADE
+
+
+        id: 3
+        author: bestuser
+        changes:
+          - createTable:
+              tableName: Users_has_Users
+              columns:
+                - column:
+                    name: user_id
+                    type: INT
+                    constraints:
+                      nullable: false
+                - column:
+                    name: friend_id
+                    type: INT
+                    constraints:
+                      nullable: false
+                - column:
+                    name: PRIMARY KEY
+                    value: "(user_id, friend_id)"
+                - column:
+                    name: fk_Users_has_Users_users
+                    type: FOREIGN KEY
+                    constraints:
+                      references: Users(id)
+                      onDelete: CASCADE
+                - column:
+                    name: fk_Users_has_Users_Users1
+                    type: FOREIGN KEY
+                    constraints:
+                      references: Users(id)
+
+    changeSet:
+      id: 5
+      author: bestuser
+      changes:
+        - createTable:
+            tableName: messages
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: time
+                  type: DATE
+                  constraints:
+                    nullable: true
+              - column:
+                  name: content
+                  type: VARCHAR(65)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: from_id
+                  type: INT
+                  constraints:
+                    nullable: false
+                    foreignKey:
+                      references: users(id)
+              - column:
+                  name: to_id
+                  type: INT
+                  constraints:
+                    nullable: false
+                    foreignKey:
+                      references: users(id)

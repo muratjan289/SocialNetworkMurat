@@ -1,5 +1,7 @@
 package com.murat.socialnetworkmurat.social_network.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -61,6 +63,7 @@ private List<User> users;
 
     }
 
+    @JsonBackReference
     public List<User> getUsers() {
         return users;
     }

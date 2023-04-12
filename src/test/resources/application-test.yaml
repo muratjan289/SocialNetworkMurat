@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/testavecoder
+    username: bestuser
+    password: "123"
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        show_sql: true
+        ddl-auto: create
+        temp:
+          use_jdbc_metadata_defaults: true
+  liquibase:
+    enabled: true
+    contexts: dev
+    change-log: db/changelog/db.changelog-master.yaml
+    default-schema: test_schema
+

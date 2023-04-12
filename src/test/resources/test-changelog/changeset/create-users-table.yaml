@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_users_table
+      author: Murat
+      changes:
+        - createTable:
+            tableName: USERS
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(45)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: pwd
+                  type: VARCHAR(45)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(45)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: enabled
+                  type: INT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: image
+                  type: VARCHAR(128)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: role_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: USERS
+                  baseColumnNames: role_id
+                  referencedTableName: ROLES
+                  referencedColumnNames: id
+                  constraintName: fk_Users_Roles1

@@ -1,0 +1,9 @@
+CREATE TABLE messages (
+id BIGSERIAL NOT NULL PRIMARY KEY,
+time DATE NULL,
+content VARCHAR(45) NULL,
+from_id INT NOT NULL,
+to_id INT NOT NULL,
+CONSTRAINT fk_Messages_Users1 FOREIGN KEY (from_id) REFERENCES Users(id),
+CONSTRAINT fk_Messages_Users2 FOREIGN KEY (to_id) REFERENCES Users(id)
+);

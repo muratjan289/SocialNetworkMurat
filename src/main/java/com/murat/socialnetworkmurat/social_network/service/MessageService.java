@@ -7,7 +7,9 @@ import java.util.List;
 public interface MessageService {
 
 
-    public List<Messages> getAllMessages();
+//    public List<Messages> getAllMessages();
+
+    List<Messages> getAllMessages(int page);
 
     public Messages getMessage(int id);
 

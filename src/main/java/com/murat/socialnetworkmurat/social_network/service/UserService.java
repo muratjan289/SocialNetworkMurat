@@ -18,11 +18,11 @@ public interface UserService {
 
 
 
-  public List<User> getAllFriend();
+
 
     public List<User> showFriends(int userId);
 
-    public List<User> showFriendsPlus(int userId);
+
 
 
 

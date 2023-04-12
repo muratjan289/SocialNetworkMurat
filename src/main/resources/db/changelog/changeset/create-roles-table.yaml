@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Murat
+      changes:
+        - createTable:
+           tableName: roles
+           columns:
+             - column:
+                 name: id
+                 type: SERIAL
+                 constraints:
+                   primaryKey: true
+                   nullable: false
+             - column:
+                 name: name
+                 type: VARCHAR(45)
+                 constraints:
+                   nullable: false
