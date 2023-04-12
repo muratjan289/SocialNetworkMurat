@@ -14,7 +14,7 @@ spring:
           use_jdbc_metadata_defaults: true
   liquibase:
     enabled: true
-    contexts: dev
+    contexts: test
     change-log: db/changelog/db.changelog-master.yaml
-    default-schema: test_schema
+    default-schema: public
 

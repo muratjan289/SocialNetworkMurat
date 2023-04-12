@@ -11,7 +11,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 public class Postgres {
 
     public static final PostgreSQLContainer<?>container = new PostgreSQLContainer<>("postgres:15.2")
-            .withDatabaseName("avecoder2")
+            .withDatabaseName("testavecoder")
             .withUsername("bestuser")
             .withPassword("123");
 

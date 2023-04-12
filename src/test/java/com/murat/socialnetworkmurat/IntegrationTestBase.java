@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Sql("/sql/role.sql")
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @SpringBootApplication
 @ContextConfiguration(initializers = {
         Postgres.Initializer.class

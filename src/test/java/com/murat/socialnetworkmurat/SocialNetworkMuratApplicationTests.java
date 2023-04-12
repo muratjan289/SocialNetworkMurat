@@ -6,21 +6,14 @@ import com.murat.socialnetworkmurat.social_network.entity.Roles;
 import com.murat.socialnetworkmurat.social_network.entity.User;
 import com.murat.socialnetworkmurat.social_network.service.UserServiceImpl;
 import jakarta.transaction.Transactional;
-import liquibase.Liquibase;
-import liquibase.database.Database;
-import liquibase.database.DatabaseFactory;
-import liquibase.database.jvm.JdbcConnection;
-import liquibase.resource.ClassLoaderResourceAccessor;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.event.annotation.AfterTestClass;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
@@ -36,7 +29,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@ActiveProfiles("test")
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.yaml")
 public  class SocialNetworkMuratApplicationTests {
@@ -52,10 +45,6 @@ public  class SocialNetworkMuratApplicationTests {
     @Test
     void contextLoads() {
     }
-
-
-
-
         User user1 = new User("John","nolovicj","Vse ok",1,"No image",new Roles("user"));
         User user2 = new User(1, "DIma","LOcked","RossiyaZZZ",1,"No image",new Roles(2));
 
@@ -83,9 +72,9 @@ public  class SocialNetworkMuratApplicationTests {
 
     @Test
     @Transactional
-    public void testDeleteUserFriend() {
+    public void testDeleteFriendship() {
         // create users and add friendship
-        User user1 = new User( "John", "nolovicj", "Vse ok", 1, "No image", new Roles( "admin"));
+        User user1 = new User( "John", "nolovicj", "Vse ok", 1, "No image", new Roles( "user"));
         User user4 = new User( "DIma", "LOcked", "RossiyaZZZ", 1, "No image", new Roles("user"));
         user1.getFriends().add(user4);
         user4.getFriends().add(user1);
@@ -105,6 +94,15 @@ public  class SocialNetworkMuratApplicationTests {
         }
 
     }
+
+
+    /**
+     * This method tests the deletion of a user from the database.
+     * First, a new user is created and saved in the database using the saveUser() method from UserService.
+     * Then, we retrieve the id of this user using the getId() method and pass it to the deleteUser() method from UserService,
+     * which deletes the user from the database based on the specified id.
+     * The test passes successfully if the deleteUser() method correctly deletes the user from the database.
+     */
     @Test
     public void testDeleteUser(){
         userService.saveUser(user1);
