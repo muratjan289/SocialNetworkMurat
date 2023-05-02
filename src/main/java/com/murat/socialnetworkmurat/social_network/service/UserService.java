@@ -3,6 +3,7 @@ package com.murat.socialnetworkmurat.social_network.service;
 import com.murat.socialnetworkmurat.social_network.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -11,7 +12,7 @@ public interface UserService {
 
     public void saveUser (User user);
 
-    public User getUser(int id);
+    public Optional<User> getUser(int id);
 
     public void deleteUser(int id);
     

@@ -8,7 +8,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
-        show_sql: true
+        show_sql: false
         ddl-auto: create
         temp:
           use_jdbc_metadata_defaults: true

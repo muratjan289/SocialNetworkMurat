@@ -1,10 +1,9 @@
 package com.murat.socialnetworkmurat.social_network.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -19,16 +18,17 @@ public class Messages {
     private int id;
 
     @Column(name ="time")
-    private Date date;
+    private LocalDate date;
 
     @Column(name ="content")
     private String content;
 
     @Column(name = "from_id")
-    private int from;
+    private int sender;
 
     @Column(name = "to_id")
-    private int to;
+    private int recipient
+;
 
 //    @Column(name ="from_id")
 //    private  int from_id;
@@ -37,7 +37,8 @@ public class Messages {
 //    private int to_id;
 //
 @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE
-        , CascadeType.REFRESH, CascadeType.DETACH})
+        , CascadeType.REFRESH, CascadeType.DETACH},fetch = FetchType.EAGER)
+
 @JoinTable(
         name = "messages"
         ,joinColumns = @JoinColumn(name = "to_id")
@@ -46,17 +47,17 @@ public class Messages {
 private List<User> users;
 
 
-    public Messages( String content, int from, int to) {
+    public Messages( String content, int sender, int recipient) {
         this.content = content;
-        this.from = from;
-        this.to = to;
+        this.sender = sender;
+        this.recipient = recipient;
     }
 
-    public Messages(Date date, String content) {
+    public Messages(LocalDate date, String content, int sender, int recipient) {
         this.date = date;
         this.content = content;
-
-
+        this.sender = sender;
+        this.recipient = recipient;
     }
 
     public Messages() {
@@ -72,6 +73,7 @@ private List<User> users;
         this.users = users;
     }
 
+
     public int getId() {
         return id;
     }
@@ -80,11 +82,11 @@ private List<User> users;
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -96,19 +98,24 @@ private List<User> users;
         this.content = content;
     }
 
-    public int getFrom() {
-        return from;
+
+
+    public int getRecipient() {
+        return recipient
+;
     }
 
-    public void setFrom(int from) {
-        this.from = from;
+    public int getSender() {
+        return sender;
     }
 
-    public int getTo() {
-        return to;
+    public void setSender(int sender) {
+        this.sender = sender;
     }
 
-    public void setTo(int to) {
-        this.to = to;
+    public void setRecipient(int recipient
+) {
+        this.recipient = recipient
+;
     }
 }

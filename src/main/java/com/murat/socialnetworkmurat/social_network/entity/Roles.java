@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 
 @Entity
 @Table(name = "roles")
@@ -39,6 +39,7 @@ public class Roles {
         this.id = id;
         this.name = name;
     }
+
 
     public Roles() {
     }

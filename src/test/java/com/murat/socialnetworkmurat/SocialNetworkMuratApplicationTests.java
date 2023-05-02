@@ -1,5 +1,6 @@
 package com.murat.socialnetworkmurat;
 
+import com.murat.socialnetworkmurat.initializer.Postgres;
 import com.murat.socialnetworkmurat.social_network.DAO.UserRepository;
 import com.murat.socialnetworkmurat.social_network.entity.Messages;
 import com.murat.socialnetworkmurat.social_network.entity.Roles;
@@ -7,6 +8,7 @@ import com.murat.socialnetworkmurat.social_network.entity.User;
 import com.murat.socialnetworkmurat.social_network.service.UserServiceImpl;
 import jakarta.transaction.Transactional;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.event.annotation.AfterTestClass;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -34,6 +37,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestPropertySource(locations = "classpath:application-test.yaml")
 public  class SocialNetworkMuratApplicationTests {
 
+//    @BeforeAll
+//    static void init(){
+//        Postgres.container.start();
+//
+//    }
 
 
     @Autowired
@@ -106,7 +114,6 @@ public  class SocialNetworkMuratApplicationTests {
     @Test
     public void testDeleteUser(){
         userService.saveUser(user1);
-        user1.getId();
         userService.deleteUser(user1.getId());
     }
 

@@ -13,7 +13,7 @@ public interface MessageService {
 
     public Messages getMessage(int id);
 
-    void saveMessage(Messages messages);
+   public void saveMessage(Messages messages);
 
     public void deleteMessage(int id);
 }

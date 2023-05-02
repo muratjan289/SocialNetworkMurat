@@ -1,7 +1,9 @@
 package com.murat.socialnetworkmurat.social_network.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class User {
 
 
 
-    @ManyToMany(cascade ={CascadeType.PERSIST,CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToMany(cascade ={CascadeType.PERSIST,CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_has_users"
             ,joinColumns = @JoinColumn(name = "user_id")
@@ -45,7 +47,8 @@ public class User {
 
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE},fetch = FetchType.EAGER)
+
     @JsonIgnore
     @JoinTable(
             name = "messages"
@@ -55,8 +58,7 @@ public class User {
     private List<Messages> messages;
 
 
-
-    @JsonManagedReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     public List<Messages> getMessages() {
         return messages;
     }

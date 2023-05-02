@@ -64,21 +64,21 @@ public class MessageServiceImpl implements MessageService {
      */
     @Override
     public void saveMessage(Messages messages){
-        User sender = userRepository.findById(messages.getFrom()).orElse(null);
-        User receiver = userRepository.findById(messages.getTo()).orElse(null);
+        User sender = userRepository.findById(messages.getSender()).orElse(null);
+        User receiver = userRepository.findById(messages.getRecipient()).orElse(null);
         if (sender == null || receiver == null) {
-            throw new NoSuchMessageException("You can't send message if user doesnt exist check your details" );
+            throw new NoSuchMessageException("You can't send message if user doesnt exist check your data" );
         }
 
-        if (!sender.getFriends().contains(receiver) || !receiver.getFriends().contains(sender)) {
-            throw new NoSuchMessageException("You can't send message if user " + messages.getTo()  + "is not  as a friend ");
-
-        }
         if (sender.getFriends().contains(receiver) && receiver.getFriends().contains(sender)) {
+            throw new NoSuchMessageException("You can't send message if user " + messages.getRecipient()  + "is not  as a friend ");
+
+        }
             // проверяем, что пользователь является другом, чтобы можно было отправлять сообщения
             messageRepository.save(messages);
             log.info("Retrieved new  messages from page " +  messages);
-        }
+
+
     }
 
 

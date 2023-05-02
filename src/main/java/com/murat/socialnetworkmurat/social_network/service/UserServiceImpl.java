@@ -1,8 +1,6 @@
 package com.murat.socialnetworkmurat.social_network.service;
 
-import com.murat.socialnetworkmurat.social_network.Controller.UserRESTController;
 import com.murat.socialnetworkmurat.social_network.DAO.UserRepository;
-import com.murat.socialnetworkmurat.social_network.exceptionHandling.NoSuchMessageException;
 import com.murat.socialnetworkmurat.social_network.exceptionHandling.NoSuchUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,30 +29,25 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> getAllUsers(){
-//        if(getAllUsers().isEmpty()) {
-//            throw new NoSuchUserException("Users is empty" );
-//        }
-//        log.info("Retrieved users " + getAllUsers().size());
+
         return  usersRepository.findAll();
     }
 
     /**
      * Returns the user object corresponding to the given user ID
      *
-     * @throws NoSuchUserException if no user exists with the given ID
      * @param id the user ID to retrieve
      * @return the user object corresponding to the given ID
+     * @throws NoSuchUserException if no user exists with the given ID
      */
     @Override
-    public User getUser(int id) {
+    public Optional<User> getUser(int id) {
 
         Optional<User> optional = usersRepository.findById(id);
-        if (!optional.isPresent()) {
-            throw new NoSuchUserException("This user does not exist" );
-        }
+        optional.get().getId();
         User user = optional.get();
         log.info("Retrieved user with = " + id);
-        return user;
+        return optional;
     }
 
 
@@ -69,11 +62,11 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user){
         try {
             usersRepository.save(user);
-            log.info("User who id  = " + user.getId() + "has been created");
+//            log.info("User who id  = " + user.getId() + "has been created");
         } catch (Exception e) {
             throw new NoSuchUserException("Please check the data your entered" );
         }
-        log.info("User with id = " + user.getId() + "has been saved");
+//        log.info("User with id = " + user.getId() + "has been saved");
     }
 
 

@@ -49,7 +49,7 @@ public class MessageRestController {
      * @return the message with the specified ID
      */
     @GetMapping("/messages/{id}")
-    public Messages getEmployee(@PathVariable int id){
+    public Messages getMessage(@PathVariable int id){
         Messages message = messageService.getMessage(id);
         return message;
     }

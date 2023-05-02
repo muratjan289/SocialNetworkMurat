@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 
@@ -48,37 +49,35 @@ public class UserRESTController {
     }
 
 
+
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable int id) {
-
-        User user = userService.getUser(id);
-
-        if (user == null) {
-
+    public Optional<User> getUser(@PathVariable int id) {
+        Optional<User> userOptional = userService.getUser(id);
+        if (userOptional.isEmpty()){
             throw new NoSuchUserException("There is no employee with ID = " + id + "int Database");
         }
         log.info("Show user there ID = " + id);
-        return user;
+        return userOptional;
     }
 
 
     @PostMapping("/users")
     public User addNewUser(@RequestBody User user) {
         userService.saveUser(user);
-        log.info("New User who id" + getUser(user.getId()));
+        log.info("New User  with id= " + getUser(user.getId()));
         return user;
     }
 
     @PutMapping("/users/{id}")
     public User updateUser(@RequestBody User user) {
         userService.saveUser(user);
-        log.info("User who ID = " + (user.getId()) + " was changed ");
+        log.info("User with ID = " + (user.getId()) + " was changed ");
         return user;
     }
 
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable int id) {
-        User user = userService.getUser(id);
+        Optional<User> user = userService.getUser(id);
         if (user != null) {
 
             throw new NoSuchUserException("There is no employee with ID = " +
@@ -110,7 +109,7 @@ public class UserRESTController {
             log.info("New friendship between who ID = " + userId + " and " + friendId);
             return ResponseEntity.ok().build();
         } else {
-            throw new NoSuchUserException("There is  user with ID = " + userId + "or " + friendId + "not added");
+            throw new NoSuchUserException("There is  user with ID = " + userId + "or " + friendId + "no such");
         }
     }
 
