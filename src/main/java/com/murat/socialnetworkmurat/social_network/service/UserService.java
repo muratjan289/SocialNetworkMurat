@@ -21,7 +21,7 @@ public interface UserService {
 
 
 
-    public List<User> showFriends(int userId);
+    public Optional<Object> showFriends(int userId);
 
 
 

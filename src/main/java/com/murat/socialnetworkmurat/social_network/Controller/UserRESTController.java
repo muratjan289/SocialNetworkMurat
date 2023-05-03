@@ -32,7 +32,7 @@ public class UserRESTController {
 
 
     @GetMapping("/users/{userId}/friends")
-    public List<User> showFriends(@PathVariable int userId) {
+    public Optional<Object> showFriends(@PathVariable int userId) {
         log.info("Show friends user who ID = " + userId);
         return userService.showFriends(userId);
     }
@@ -49,7 +49,16 @@ public class UserRESTController {
     }
 
 
-
+    /**
+     * This method provides a REST API endpoint to retrieve a user from the database by their ID.
+     * It takes in the user ID as a path variable and uses the userService.getUser() method to fetch the user from the database.
+     * If the user is not found, it throws a NoSuchUserException with an appropriate error message.
+     * It logs the user ID of the retrieved user using log.info().
+     *
+     * @param id - an integer representing the ID of the user to retrieve
+     * @return an Optional<User> object representing the retrieved user, or an empty Optional if the user is not found
+     * @throws NoSuchUserException if no user is found with the given ID
+     */
     @GetMapping("/users/{id}")
     public Optional<User> getUser(@PathVariable int id) {
         Optional<User> userOptional = userService.getUser(id);
@@ -61,12 +70,29 @@ public class UserRESTController {
     }
 
 
+    /**
+     * This method provides a REST API endpoint to add a new user to the database.
+     * It takes in a User object in the request body and saves it to the database using the userService.saveUser() method.
+     * It logs the user ID of the newly added user using log.info().
+     *
+     * @param user - a User object representing the new user information
+     * @return the newly added User object
+     */
     @PostMapping("/users")
     public User addNewUser(@RequestBody User user) {
         userService.saveUser(user);
         log.info("New User  with id= " + getUser(user.getId()));
         return user;
     }
+
+    /**
+     * This method provides a REST API endpoint to update a user in the database based on their ID.
+     * It takes in a User object in the request body and saves it to the database using the userService.saveUser() method.
+     * It logs the user ID of the updated user using log.info().
+     *
+     * @param user - a User object representing the updated user information
+     * @return the updated User object
+     */
 
     @PutMapping("/users/{id}")
     public User updateUser(@RequestBody User user) {
@@ -75,6 +101,16 @@ public class UserRESTController {
         return user;
     }
 
+    /**
+     * This method provides a REST API endpoint to delete a user from the database based on their ID.
+     * It takes in the user ID as a path variable and returns a string indicating that the user was successfully deleted.
+     * If the user with the specified ID does not exist in the database, it throws a custom exception called NoSuchUserException.
+     * It logs the user ID of the deleted user using log.info().
+     *
+     * @param id - an integer representing the ID of the user to be deleted
+     * @return a string indicating that the user was successfully deleted
+     * @throws NoSuchUserException if the user with the specified ID does not exist in the database
+     */
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable int id) {
         Optional<User> user = userService.getUser(id);

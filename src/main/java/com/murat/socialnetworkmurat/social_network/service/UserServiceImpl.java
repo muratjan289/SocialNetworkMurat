@@ -95,20 +95,19 @@ public class UserServiceImpl implements UserService {
      * @return a list of the user's friends
      */
     @Override
-    public List<User> showFriends(int userId) {
-        User user = usersRepository.findById(userId).orElse(null);
-        if (user == null) {
-            return null;
+    public Optional<Object> showFriends(int userId) {
+        Optional<User> user = usersRepository.findById(userId);
+        if (!user.isPresent()) {
+            return Optional.empty();
         }
         List<User> friends = new ArrayList<>();
-        for (User friend : user.getFriends()) {
+        for (User friend : user.get().getFriends()) {
             friends.add(new User(friend.getId(), friend.getName()));
         }
         log.info("Retrieved user id " + userId + " and his friends" ) ;
 
-        return friends;
+        return Optional.of(friends);
     }
-
 
     /**
      * Retrieves a list of the IDs of the user's friends with the given ID.
